@@ -37,13 +37,16 @@ docker-compose up
 
 When you run the exploit scripts, the following vulnerabilities are demonstrated:
 
-* SQL Injection
-* Cross-Site Scripting (XSS)
-* File Upload Vulnerabilities
-* XML External Entities (XXE)
-* Missing Security Headers
-* Information Disclosure
-* And more...
+* SQL Injection 
+* Cross-Site Scripting (XSS) 
+* Insecure Direct Object References (IDOR) 
+* Cross-Site Request Forgery (CSRF) 
+* Security Misconfiguration 
+* Insecure File Upload 
+* Path Traversal
+* XML External Entities (XXE) 
+* Unvalidated Redirects 
+* Broken Authentication 
 
 ---
 
