@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= post ? post.title : 'Post' %> - Vulnerable Blog</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1><a href="/">Vulnerable Blog</a></h1>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <% if (user) { %>
+                    <a href="/dashboard">Dashboard</a>
+                    <a href="/logout">Logout</a>
+                <% } else { %>
+                    <a href="/login">Login</a>
+                <% } %>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <% if (post) { %>
+            <article class="post">
+                <h1><%= post.title %></h1>
+                <p><%= post.content %></p>
+                <small>By User ID: <%= post.author_id %> on <%= post.created_at %></small>
+            </article>
+            
+            <section class="comments">
+                <h3>Comments</h3>
+                
+                <% if (comments && comments.length > 0) { %>
+                    <% comments.forEach(comment => { %>
+                        <div class="comment">
+                            <p><%- comment.comment %></p>
+                            <small>By <%= comment.author %> on <%= comment.created_at %></small>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <p>No comments yet.</p>
+                <% } %>
+            </section>
+            
+            <div class="comment-form">
+                <h4>Leave a Comment</h4>
+                <div class="warning">
+                    <strong>⚠️ XSS Vulnerability:</strong> Comments are not sanitized!
+                </div>
+                
+                <form action="/comment" method="POST">
+                    <input type="hidden" name="postId" value="<%= post.id %>">
+                    
+                    <div class="form-group">
+                        <label for="author">Your Name:</label>
+                        <input type="text" id="author" name="author" value="<%= user ? user.username : '' %>" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="comment">Comment:</label>
+                        <textarea id="comment" name="comment" rows="4" required placeholder="Try: <script>alert('XSS')</script>"></textarea>
+                    </div>
+                    
+                    <button type="submit">Post Comment</button>
+                </form>
+            </div>
+        <% } else { %>
+            <p>Post not found.</p>
+        <% } %>
+    </div>
+</body>
+</html>

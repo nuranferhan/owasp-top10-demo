@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OWASP Top 10 Demo - Vulnerable Blog</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1><a href="/">Vulnerable Blog</a></h1>
+            <div class="nav-links">
+                <% if (user) { %>
+                    <a href="/dashboard">Dashboard</a>
+                    <a href="/profile">Profile</a>
+                    <% if (user.role === 'admin') { %>
+                        <a href="/admin">Admin Panel</a>
+                    <% } %>
+                    <a href="/logout">Logout</a>
+                <% } else { %>
+                    <a href="/login">Login</a>
+                    <a href="/register">Register</a>
+                <% } %>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>Latest Posts</h2>
+        
+        <div class="search-box">
+            <form action="/search" method="GET">
+                <input type="text" name="q" placeholder="Search posts..." value="">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <div class="posts">
+            <% if (posts && posts.length > 0) { %>
+                <% posts.forEach(post => { %>
+                    <div class="post">
+                        <h3><a href="/post/<%= post.id %>"><%= post.title %></a></h3>
+                        <p><%= post.content.substring(0, 200) %>...</p>
+                        <small>By User ID: <%= post.author_id %> on <%= post.created_at %></small>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <p>No posts available.</p>
+            <% } %>
+        </div>
+
+        <div class="vulnerable-features">
+            <h3>Demo Features (Vulnerable)</h3>
+            <ul>
+                <li><a href="/xml">XML Processing</a></li>
+                <li><a href="/upload.html">File Upload</a></li>
+                <li><a href="/redirect?url=https://example.com">Redirect Test</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Vulnerable Blog</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h2>Register</h2>
+            
+            <% if (typeof error !== 'undefined') { %>
+                <div class="error"><%= error %></div>
+            <% } %>
+            
+            <form action="/register" method="POST">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <button type="submit">Register</button>
+            </form>
+            
+            <p><a href="/login">Already have an account? Login here</a></p>
+            <p><a href="/">Back to Home</a></p>
+            
+            <div class="vulnerable-features">
+                <h4>⚠️ Registration Vulnerabilities:</h4>
+                <ul>
+                    <li>No password strength requirements</li>
+                    <li>Passwords stored in plaintext (in vulnerable version)</li>
+                    <li>No email verification</li>
+                    <li>SQL injection in registration form</li>
+                    <li>No rate limiting</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

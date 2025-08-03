@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload - Vulnerable Demo</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1><a href="/">Vulnerable Blog</a></h1>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/login">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="form-container">
+            <h2>File Upload Demo</h2>
+            
+            <div class="warning">
+                <strong>⚠️ Security Warning:</strong> This upload functionality is intentionally vulnerable for demonstration purposes!
+            </div>
+            
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                <div class="upload-area">
+                    <h3>Select File to Upload</h3>
+                    <input type="file" name="file" required>
+                    <p>Any file type accepted - No validation!</p>
+                </div>
+                
+                <button type="submit">Upload File</button>
+            </form>
+            
+            <div class="vulnerable-features">
+                <h3>Known Vulnerabilities:</h3>
+                <ul>
+                    <li>No file type validation</li>
+                    <li>No file size limits</li>
+                    <li>No content scanning</li>
+                    <li>Files stored in web-accessible directory</li>
+                    <li>No filename sanitization</li>
+                    <li>Executable files allowed</li>
+                </ul>
+            </div>
+            
+            <div class="demo-credentials">
+                <h4>Test Files to Try:</h4>
+                <p>• PHP web shell: &lt;?php system($_GET['cmd']); ?&gt;</p>
+                <p>• HTML with XSS: &lt;script&gt;alert('XSS')&lt;/script&gt;</p>
+                <p>• SVG with payload: &lt;svg onload="alert('XSS')"&gt;</p>
+                <p>• Executable files: .bat, .sh, .exe</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XML Processing - Vulnerable Blog</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1><a href="/">Vulnerable Blog</a></h1>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/login">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="form-container">
+            <h2>XML/Code Processing Demo</h2>
+            
+            <div class="warning">
+                <strong>🚨 DANGER:</strong> This endpoint uses eval() and is extremely vulnerable!
+            </div>
+            
+            <form action="/xml" method="GET">
+                <div class="form-group">
+                    <label for="xml">JavaScript Code to Execute:</label>
+                    <textarea id="xml" name="xml" class="xml-input" placeholder='Try: console.log("Hello World")' rows="10"></textarea>
+                </div>
+                
+                <button type="submit">Process Code</button>
+            </form>
+            
+            <div class="vulnerable-features">
+                <h3>💀 Code Injection Examples:</h3>
+                <div class="payload">
+console.log("Basic test")
+                </div>
+                <div class="payload">
+require("fs").readFileSync("/etc/passwd", "utf8")
+                </div>
+                <div class="payload">
+require("child_process").execSync("whoami").toString()
+                </div>
+                <div class="payload">
+process.env
+                </div>
+                <div class="payload">
+require("os").userInfo()
+                </div>
+            </div>
+            
+            <div class="demo-credentials">
+                <h4>⚠️ Security Issues:</h4>
+                <p>• Direct eval() usage</p>
+                <p>• No input validation</p>
+                <p>• File system access possible</p>
+                <p>• Command execution possible</p>
+                <p>• Environment variable access</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

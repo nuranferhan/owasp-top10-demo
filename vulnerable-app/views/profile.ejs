@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Vulnerable Blog</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1><a href="/">Vulnerable Blog</a></h1>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/dashboard">Dashboard</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="form-container">
+            <h2>User Profile</h2>
+            
+            <div class="user-info">
+                <h3>Profile Information</h3>
+                <p><strong>Username:</strong> <%= user.username %></p>
+                <p><strong>Email:</strong> <%= user.email %></p>
+                <p><strong>Role:</strong> <%= user.role %></p>
+                <p><strong>User ID:</strong> <%= user.id %></p>
+            </div>
+            
+            <div class="comment-form">
+                <h3>Change Password</h3>
+                <div class="warning">
+                    <strong>⚠️ CSRF Vulnerability:</strong> No CSRF protection on password change!
+                </div>
+                
+                <form action="/change-password" method="POST">
+                    <div class="form-group">
+                        <label for="newPassword">New Password:</label>
+                        <input type="password" id="newPassword" name="newPassword" required>
+                    </div>
+                    
+                    <button type="submit">Change Password</button>
+                </form>
+            </div>
+            
+            <div class="vulnerable-features">
+                <h4>🎯 CSRF Attack Targets:</h4>
+                <p>This form is vulnerable to CSRF. Test with csrf_exploit.html</p>
+                <ul>
+                    <li>No CSRF token validation</li>
+                    <li>No referer checking</li>
+                    <li>Accepts requests from any origin</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

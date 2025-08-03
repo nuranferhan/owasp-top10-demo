@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Vulnerable Blog</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1><a href="/">Vulnerable Blog</a></h1>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <% if (sessionUser && sessionUser.role === 'admin') { %>
+                    <a href="/admin">Admin Panel</a>
+                <% } %>
+                <a href="/profile">Profile</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="dashboard-info">
+            <h2>User Dashboard</h2>
+            
+            <% if (user) { %>
+                <div class="user-info">
+                    <h3>User Information</h3>
+                    <p><strong>ID:</strong> <%= user.id %></p>
+                    <p><strong>Username:</strong> <%= user.username %></p>
+                    <p><strong>Email:</strong> <%= user.email %></p>
+                    <p><strong>Role:</strong> <%= user.role %></p>
+                </div>
+                
+                <div class="vulnerable-features">
+                    <h4>⚠️ IDOR Vulnerability Test:</h4>
+                    <p>Try changing the userId parameter in the URL:</p>
+                    <ul>
+                        <li><a href="/dashboard?userId=1">View User 1</a></li>
+                        <li><a href="/dashboard?userId=2">View User 2</a></li>
+                        <li><a href="/dashboard?userId=3">View User 3</a></li>
+                    </ul>
+                </div>
+            <% } else { %>
+                <p>User not found or access denied.</p>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>

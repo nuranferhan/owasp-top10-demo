@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Vulnerable Blog</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1><a href="/">Vulnerable Blog</a></h1>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/dashboard">Dashboard</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="admin-panel">
+            <h2>🔧 Admin Panel</h2>
+            
+            <div class="warning">
+                <strong>⚠️ Vulnerability:</strong> This admin panel is vulnerable to CSRF attacks!
+            </div>
+            
+            <h3>User Management</h3>
+            
+            <% if (users && users.length > 0) { %>
+                <table class="user-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% users.forEach(user => { %>
+                            <tr>
+                                <td><%= user.id %></td>
+                                <td><%= user.username %></td>
+                                <td><%= user.email %></td>
+                                <td><%= user.role %></td>
+                                <td>
+                                    <form action="/admin/delete-user" method="POST" style="display: inline;">
+                                        <input type="hidden" name="userId" value="<%= user.id %>">
+                                        <button type="submit" class="delete-btn" onclick="return confirm('Delete user?')">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            <% } else { %>
+                <p>No users found.</p>
+            <% } %>
+            
+            <div class="vulnerable-features">
+                <h4>🎯 CSRF Test Targets:</h4>
+                <p>These forms are vulnerable to CSRF attacks:</p>
+                <ul>
+                    <li>User deletion (no CSRF token)</li>
+                    <li>No referrer validation</li>
+                    <li>No SameSite cookie protection</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

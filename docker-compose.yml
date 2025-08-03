@@ -1,0 +1,27 @@
+# version satırı kaldırıldı (obsolete uyarısını gidermek için)
+services:
+  vulnerable-app:
+    build: .
+    ports:
+      - "${DOCKER_PORT:-3000}:3000" 
+    volumes:
+      # Artık /app seviyesindeyiz, vulnerable-app/ öneki yok
+      - ./vulnerable-app/database.db:/app/database.db
+      - ./vulnerable-app/public/uploads:/app/public/uploads
+      - ./vulnerable-app/public/css:/app/public/css
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}  
+      - JWT_SECRET=${JWT_SECRET}         
+      - SESSION_SECRET=${SESSION_SECRET}  
+    env_file:                             
+      - .env                              
+      - vulnerable-app/.env                
+    
+  exploit-runner:
+    image: python:3.9-alpine
+    depends_on:
+      - vulnerable-app
+    volumes:
+      - ./exploits:/app/exploits
+    working_dir: /app/exploits
+    command: sh -c "pip install requests && python comprehensive_exploit.py http://vulnerable-app:3000"
