@@ -37,18 +37,6 @@ docker-compose up
 
 When you run the exploit scripts, the following vulnerabilities are demonstrated:
 
-<<<<<<< HEAD
-* SQL Injection 
-* Cross-Site Scripting (XSS) 
-* Insecure Direct Object References (IDOR) 
-* Cross-Site Request Forgery (CSRF) 
-* Security Misconfiguration 
-* Insecure File Upload 
-* Path Traversal
-* XML External Entities (XXE) 
-* Unvalidated Redirects 
-* Broken Authentication 
-=======
 * SQL Injection
 * Cross-Site Scripting (XSS)
 * File Upload Vulnerabilities
@@ -56,7 +44,6 @@ When you run the exploit scripts, the following vulnerabilities are demonstrated
 * Missing Security Headers
 * Information Disclosure
 * And more...
->>>>>>> f189d06 (adding)
 
 ---
 
@@ -77,12 +64,12 @@ python3 exploit_sqli.py
 python3 exploit_xss.py
 python3 exploit_file_upload.py
 python3 exploit_xxe.py
-...
 ```
 
 > These scripts do **NOT** run automatically during setup. You must run them manually after the app is running.
 
-```
+---
+
 ## Application URLs
 
 * Main App: [http://localhost:3000](http://localhost:3000)
@@ -160,6 +147,4 @@ exit
 ## Security Warning
 
 This application is INTENTIONALLY VULNERABLE! Use only for educational purposes and NEVER in production environments.
-
-
 
